@@ -1,0 +1,10 @@
+{
+  "C_Cpp.intelliSenseEngine": "Tag Parser",
+  "files.associations": {
+    "esp_wifi.h": "c",
+    "nvs.h": "c",
+    "ratio": "c"
+  },
+  "idf.port": "/dev/ttyUSB0",
+  "idf.flashType": "UART"
+}
