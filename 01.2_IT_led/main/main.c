@@ -4,8 +4,10 @@
 #include "freertos/task.h"
 
 #define ONBOARD_LED 2
-#define KEY 5
+#define KEY 33
 #define ESP_INTR_FLAG_DEFAULT  0
+
+static bool led_state = false;
 
 static void interruprt_handler(void *arg)
 {
@@ -16,10 +18,11 @@ static void interruprt_handler(void *arg)
         {
             if(gpio_get_level(KEY) == 0)
             {
-                if(gpio_get_level(ONBOARD_LED) == 1)
+                if(led_state == true)
                     gpio_set_level(ONBOARD_LED,0);
                 else
                     gpio_set_level(ONBOARD_LED,1);
+                led_state = !led_state;
             }
         }
     }
@@ -29,7 +32,7 @@ void app_main(void)
 {
     gpio_config_t led = 
     {
-        .pin_bit_mask = 1UL << ONBOARD_LED,
+        .pin_bit_mask = 1ULL << ONBOARD_LED,
         .mode = GPIO_MODE_OUTPUT,
         .pull_up_en = false,
         .pull_down_en = false,
@@ -39,7 +42,7 @@ void app_main(void)
 
     gpio_config_t key = 
     {
-        .pin_bit_mask = 1UL << KEY,
+        .pin_bit_mask = 1ULL << KEY,
         .mode = GPIO_MODE_INPUT,//输入模式
         .pull_up_en = true,//上拉
         .pull_down_en = false,
