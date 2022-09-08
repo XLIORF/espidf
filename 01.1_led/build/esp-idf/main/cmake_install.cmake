@@ -1,4 +1,4 @@
-# Install script for directory: /home/wlx/learn/espidf/1.1_led/main
+# Install script for directory: /home/wlx/learn/espidf/01.1_led/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

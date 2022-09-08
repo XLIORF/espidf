@@ -5,7 +5,7 @@
 
 
 #define BOARD_LED 2
-#define KEY 25 
+#define KEY 33 
 void app_main(void)
 {
     int level = 0;
@@ -37,14 +37,14 @@ void app_main(void)
     while (1)
     {
         while(gpio_get_level(KEY));
-        vTaskDelay(pdMS_TO_TICKS(10));
+        vTaskDelay(pdMS_TO_TICKS(300));
         if(gpio_get_level(KEY) == 0)
         {
             level = !level;
             while(!gpio_get_level(KEY));
         }
         gpio_set_level(BOARD_LED,level);
-        vTaskDelay(pdMS_TO_TICKS(10));
+        vTaskDelay(pdMS_TO_TICKS(400));
     }
     
 }

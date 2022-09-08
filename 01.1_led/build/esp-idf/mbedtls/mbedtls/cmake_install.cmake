@@ -39,9 +39,9 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/wlx/learn/espidf/1.1_led/build/esp-idf/mbedtls/mbedtls/include/cmake_install.cmake")
-  include("/home/wlx/learn/espidf/1.1_led/build/esp-idf/mbedtls/mbedtls/3rdparty/cmake_install.cmake")
-  include("/home/wlx/learn/espidf/1.1_led/build/esp-idf/mbedtls/mbedtls/library/cmake_install.cmake")
+  include("/home/wlx/learn/espidf/01.1_led/build/esp-idf/mbedtls/mbedtls/include/cmake_install.cmake")
+  include("/home/wlx/learn/espidf/01.1_led/build/esp-idf/mbedtls/mbedtls/3rdparty/cmake_install.cmake")
+  include("/home/wlx/learn/espidf/01.1_led/build/esp-idf/mbedtls/mbedtls/library/cmake_install.cmake")
 
 endif()
 

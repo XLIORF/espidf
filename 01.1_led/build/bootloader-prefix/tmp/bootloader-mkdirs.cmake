@@ -5,15 +5,15 @@ cmake_minimum_required(VERSION 3.5)
 
 file(MAKE_DIRECTORY
   "/home/wlx/program/espressif/esp-idf/components/bootloader/subproject"
-  "/home/wlx/learn/espidf/1.1_led/build/bootloader"
-  "/home/wlx/learn/espidf/1.1_led/build/bootloader-prefix"
-  "/home/wlx/learn/espidf/1.1_led/build/bootloader-prefix/tmp"
-  "/home/wlx/learn/espidf/1.1_led/build/bootloader-prefix/src/bootloader-stamp"
-  "/home/wlx/learn/espidf/1.1_led/build/bootloader-prefix/src"
-  "/home/wlx/learn/espidf/1.1_led/build/bootloader-prefix/src/bootloader-stamp"
+  "/home/wlx/learn/espidf/01.1_led/build/bootloader"
+  "/home/wlx/learn/espidf/01.1_led/build/bootloader-prefix"
+  "/home/wlx/learn/espidf/01.1_led/build/bootloader-prefix/tmp"
+  "/home/wlx/learn/espidf/01.1_led/build/bootloader-prefix/src/bootloader-stamp"
+  "/home/wlx/learn/espidf/01.1_led/build/bootloader-prefix/src"
+  "/home/wlx/learn/espidf/01.1_led/build/bootloader-prefix/src/bootloader-stamp"
 )
 
 set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "/home/wlx/learn/espidf/1.1_led/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
+    file(MAKE_DIRECTORY "/home/wlx/learn/espidf/01.1_led/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
 endforeach()

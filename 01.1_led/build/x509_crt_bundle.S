@@ -1,4 +1,4 @@
-/* * Data converted from /home/wlx/learn/espidf/1.1_led/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from /home/wlx/learn/espidf/01.1_led/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 .section .rodata.embedded
