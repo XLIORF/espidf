@@ -3,8 +3,14 @@
   "files.associations": {
     "esp_wifi.h": "c",
     "nvs.h": "c",
-    "ratio": "c"
+    "ratio": "c",
+    "complex": "c",
+    "esp_log.h": "c",
+    "nvs_flash.h": "c",
+    "esp_system.h": "c",
+    "esp_event.h": "c"
   },
   "idf.port": "/dev/ttyUSB0",
-  "idf.flashType": "UART"
+  "idf.flashType": "UART",
+  "idf.adapterTargetName": "esp32"
 }

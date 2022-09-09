@@ -67,7 +67,7 @@ static void net_event_handler(void* arg, esp_event_base_t event_base, int32_t ev
 void app_main(void)
 {
     //nvs
-#if 0
+#if 1
     uint8_t ssid[] = "ChinaUnicom-E5DFNM";
     uint8_t password[] = "123456789";
 

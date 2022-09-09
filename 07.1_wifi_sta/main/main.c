@@ -1,16 +1,19 @@
 #include <stdio.h>
 #include "esp_log.h"
-
 #include "nvs_flash.h"
-#include "nvs.h"
-#include "esp_system.h"
-
 #include "esp_wifi.h"
 #include "esp_event.h"
-
 #include "string.h"
-bool wifi_exist_flag = false;
 
+bool wifi_exist_flag = false;
+#define campus_env 1
+#if home_env
+    #define my_wifi_ssid "ChinaUnicom-E5DFNM"
+    #define my_wifi_password "123456789"
+#elif campus_env
+    #define my_wifi_ssid "TP-LINK_221"
+    #define my_wifi_password "221000221x"
+#endif
 static void net_event_handler(void* arg, esp_event_base_t event_base, int32_t event_id, void* event_data)
 {
     ESP_LOGI("event handler", "----> event_base: %s event_id: %d", event_base, event_id);
@@ -51,7 +54,7 @@ static void net_event_handler(void* arg, esp_event_base_t event_base, int32_t ev
 //概率触发掉电检测
 void app_main(void)
 {
-    char ssid[] = "ChinaUnicom-E5DFNM";
+    // char ssid[] = "TP-LINK_221";
     //初始化NVS
     esp_err_t err = nvs_flash_init();
     if(err == ESP_ERR_NVS_NO_FREE_PAGES || err == ESP_ERR_NVS_NEW_VERSION_FOUND)
@@ -73,24 +76,28 @@ void app_main(void)
     esp_wifi_init(&cfg);
     //目标WiFi配置
     wifi_config_t wifi_config ={
-        .sta.ssid = "ChinaUnicom-E5DFNM",
-        .sta.password = "123456789"
+        .sta.ssid = my_wifi_ssid,
+        .sta.password = my_wifi_password
     };
-
     esp_wifi_set_config(ESP_IF_WIFI_STA,&wifi_config);
     //设置wifi模式
     esp_wifi_set_mode(WIFI_MODE_STA);
     //启动WiFi
     esp_wifi_start();
     //开始连接
-    // esp_wifi_connect();
+    // esp_wifi_connect();//连接后再扫描wifi会断开当前连接
     //开始扫描WiFi ap，第二个参数表示否阻塞
     esp_wifi_scan_start(NULL,true);
     //获取扫描到的wifi ap数量
     uint16_t wifi_num;
     esp_wifi_scan_get_ap_num(&wifi_num);
+    if (wifi_num > 10)
+    {
+        wifi_num = 10;//如果环境有太多ap而不做限制就会溢出
+    }
     //拿到WiFi ap的信息
-    wifi_ap_record_t wifi_ap[wifi_num];
+    wifi_ap_record_t wifi_ap[wifi_num];//通常是这个变量占用内存（wifi驱动分配到的）过大溢出
+    
     esp_wifi_scan_get_ap_records(&wifi_num,wifi_ap);
     //处理wifi ap信息
      for(int i = 0; i < wifi_num; i++){
@@ -118,12 +125,12 @@ void app_main(void)
         printf("—————【第 %2d 个WiFi】———————\n", i+1);
         printf("WiFi名称: %s\n", wifi_ap[i].ssid);
         //判断要连接的wifi是否存在
-        if(strcmp((char *)wifi_ap[i].ssid, ssid))wifi_exist_flag = true;
+        if(strcmp((char *)wifi_ap[i].ssid, my_wifi_ssid))wifi_exist_flag = true;
         printf("信号强度: %d格\n", rssi_level);
         printf("WiFi: 安全类型: %d\n\n", wifi_ap[i].authmode);
     }
     if(wifi_exist_flag)
         esp_wifi_connect();//开始连接
     else
-        printf("%s 不存在！",ssid);
+        printf("%s 不存在！",my_wifi_ssid);
 }

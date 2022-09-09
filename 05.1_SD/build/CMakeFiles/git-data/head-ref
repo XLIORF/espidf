@@ -1,0 +1,7 @@
+0000000000000000000000000000000000000000 802db203d514c38f7be45d6de90c3910aeb73c6d 酒鸢 <11197497+winekite@user.noreply.gitee.com> 1662534629 +0800	commit (initial): create
+802db203d514c38f7be45d6de90c3910aeb73c6d dc1ded76a18b27386fe5e1d78a9d5a56d6af40f9 酒鸢 <11197497+winekite@user.noreply.gitee.com> 1662535853 +0800	commit: add 2.1_softTimer
+dc1ded76a18b27386fe5e1d78a9d5a56d6af40f9 feb54727307f44d5d1445f6fbe543658fb2fe45a 酒鸢 <11197497+winekite@user.noreply.gitee.com> 1662541876 +0800	commit: first backup
+feb54727307f44d5d1445f6fbe543658fb2fe45a 52c5a37ec33dbd1691fa22ffd570296f28c064ca 酒鸢 <11197497+winekite@user.noreply.gitee.com> 1662642343 +0800	commit: 上版测试通过，但是按键抖动
+52c5a37ec33dbd1691fa22ffd570296f28c064ca af57153eb2e06fafafc8497bd36cf4d29671f759 酒鸢 <11197497+winekite@user.noreply.gitee.com> 1662646595 +0800	commit: 改用消息队列，按键增加延时消抖
+af57153eb2e06fafafc8497bd36cf4d29671f759 90f6341610d65233af2b8d79fc4f06d4e2145f1f 酒鸢 <11197497+winekite@user.noreply.gitee.com> 1662646969 +0800	commit: 减缓闪烁频率，修改按键io
+90f6341610d65233af2b8d79fc4f06d4e2145f1f a5ae7b3dceec7f49659892f95c710af69b7e2495 酒鸢 <11197497+winekite@user.noreply.gitee.com> 1662703203 +0800	commit: 测试04.2
