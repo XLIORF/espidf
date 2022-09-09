@@ -7,13 +7,11 @@
 #include "OLED.h"
 #include "string.h"
 #include "freertos/event_groups.h"
-#include "string.h"
 
 #define wifi_ssid  "TP-LINK_221"
 #define wifi_password  "221000221x"
 
 static char TAG[] = "main";
-bool wifi_exist_flag = false;
 
 EventGroupHandle_t user_EventGroup = NULL; 
 

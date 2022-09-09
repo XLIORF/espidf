@@ -6,4 +6,4 @@ cmake_minimum_required(VERSION 3.5)
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 set(EXTERN_COMPONENTS ./components)
-project(template-app)
+project(mqtt_bemfa)
