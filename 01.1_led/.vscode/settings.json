@@ -4,5 +4,8 @@
     "gpio.h": "c",
     "task.h": "c",
     "freertos.h": "c"
-  }
+  },
+  "idf.adapterTargetName": "esp32",
+  "idf.port": "/dev/ttyUSB0",
+  "idf.flashType": "UART"
 }
