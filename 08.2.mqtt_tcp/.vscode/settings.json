@@ -12,7 +12,16 @@
     "cerrno": "c",
     "array": "c",
     "string": "c",
-    "string_view": "c"
+    "string_view": "c",
+    "esp_event.h": "c",
+    "*.tcc": "c",
+    "fstream": "c",
+    "memory": "cpp",
+    "future": "cpp",
+    "istream": "cpp",
+    "functional": "cpp",
+    "tuple": "cpp",
+    "utility": "cpp"
   },
   "idf.port": "/dev/ttyUSB0",
   "idf.flashType": "UART",
