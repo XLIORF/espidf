@@ -1,13 +1,12 @@
 #include "mqtt_bemfa.h"
 #include "esp_log.h"
 #include "esp_err.h"
-
+using namespace std; 
 static char TAG[] = "mqtt_bemfa";
 
 mqtt_bemfa::mqtt_bemfa(char *uid, const char *host, int port)
 {
-    while (!this->create_socket())
-        ;
+    while (!this->create_socket());
     this->bind_server(host, port);
     sprintf(this->_uid, "%s", uid);
     ESP_LOGI(TAG, "uid=%s", this->_uid);
@@ -36,15 +35,11 @@ bool mqtt_bemfa::connect()
 mqtt_bemfa_err_t mqtt_bemfa::subscribe(const char *topic)
 {
     char format_data[200];
-    this->_send_buffer.cmd = 1;
-    sprintf(this->_send_buffer.topic, "%s", topic);
-    ESP_LOGI(TAG, "topic=%s", this->_send_buffer.topic);
-    sprintf(this->_send_buffer.raw,
-            "cmd=%d&uid=%s&topic=%s\r\n",
-            this->_send_buffer.cmd,
+    sprintf(this->_raw,
+            "cmd=1&uid=%s&topic=%s\r\n",
             this->_uid,
-            this->_send_buffer.topic);
-    esp_err_t err = ::sendto(this->_socket, this->_send_buffer.raw, sizeof(this->_send_buffer.raw), true,
+            topic);
+    esp_err_t err = ::sendto(this->_socket, this->_raw, sizeof(this->_raw), true,
                              (struct sockaddr *)&(this->_server_addr),
                              sizeof(this->_server_addr));
     if (err == -1)
@@ -53,7 +48,7 @@ mqtt_bemfa_err_t mqtt_bemfa::subscribe(const char *topic)
         return MQTT_BEMFA_ERROR_SEND_FAILD;
     }
     ESP_LOGI(TAG, "send finish!");
-    recv(this->_socket, this->_recv_buffer.raw, sizeof(this->_recv_buffer.raw), false);
+    ::recv(this->_socket, this->_recv_buffer.raw, sizeof(this->_recv_buffer.raw), false);
     if (sscanf(this->_recv_buffer.raw, "%[0-9a-zA-Z=&]\r\n", format_data) != -1)
         ESP_LOGI(TAG, "first Recv:%s", format_data);
     if (strcmp(format_data, "cmd=1&res=1") == 0)
@@ -115,7 +110,7 @@ mqtt_bemfa_err_t mqtt_bemfa::push(const char *topic, char *msg, bool notice)
     }
     ESP_LOGI(TAG, "send finish!");
 
-    recv(this->_socket, this->_recv_buffer.raw, sizeof(this->_recv_buffer.raw), false);
+    ::recv(this->_socket, this->_recv_buffer.raw, sizeof(this->_recv_buffer.raw), false);
     if (sscanf(this->_recv_buffer.raw, "%[0-9a-zA-Z=&]\r\n", format_data) != -1)
         ESP_LOGI(TAG, "first Recv:%s", format_data);
     if (strcmp(format_data, "cmd=2&res=1") == 0)
@@ -129,7 +124,7 @@ void mqtt_bemfa::loop()
     bool loop_flag = true;
     while (loop_flag)
     {
-        esp_err_t err = ::sendto(this->_socket, this->_loop_data, sizeof(this->_loop_data), true,
+        esp_err_t err = ::sendto(this->_socket, "ping\r\n", sizeof("ping\r\n"), true,
                                 (struct sockaddr *)&(this->_server_addr),
                                 sizeof(this->_server_addr));
         if (err == -1)
@@ -139,7 +134,7 @@ void mqtt_bemfa::loop()
         }
         ESP_LOGI(TAG, "send finish!");
 
-        recv(this->_socket, this->_recv_buffer.raw, sizeof(this->_recv_buffer.raw), false);
+        ::recv(this->_socket, this->_recv_buffer.raw, sizeof(this->_recv_buffer.raw), false);
         if (sscanf(this->_recv_buffer.raw, "%[0-9a-zA-Z=&]\r\n", format_data) != -1)
             ESP_LOGI(TAG, "first Recv:%s", format_data);
         if (strcmp(format_data, "cmd=0&res=1") == 0)
@@ -147,14 +142,25 @@ void mqtt_bemfa::loop()
     }
 }
 
-void mqtt_bemfa::event_handler(void *arg)
+void mqtt_bemfa::recv()
 {
     //请参照事件循环完成mqtt事件处理函数的编写
     char format_data[200];
-    recv(this->_socket, this->_recv_buffer.raw, sizeof(this->_recv_buffer.raw), false);
+    ::recv(this->_socket, this->_recv_buffer.raw, sizeof(this->_recv_buffer.raw), false);
     if(sscanf(this->_recv_buffer.raw,"%[0-9a-zA-Z=&]\r\n",format_data) != -1)
-            ESP_LOGI(TAG,"Recv:%s",format_data);
-    if(sscanf(format_data,"cmd=%c&uid=%[a-z0-9A-Z]&topic=%[a-z0-9A-Z]&msg=%[a-z0-9A-Z]",
+        ESP_LOGI(TAG,"Recv:%s",format_data);
+    if(sscanf(format_data,"cmd=%d&uid=%[a-z0-9A-Z]&topic=%[a-z0-9A-Z]&msg=%[a-z0-9A-Z]",
             &this->_recv_buffer.cmd,this->_recv_buffer.uid,this->_recv_buffer.topic,this->_recv_buffer.msg) != -1)
-        ESP_LOGI(TAG,"topic:%s,msg:%s",topic,msg);
+        ESP_LOGI(TAG,"topic:%s,msg:%s",this->_recv_buffer.topic,this->_recv_buffer.msg);
+}
+
+bool mqtt_bemfa::get_recv_flag()
+{
+    
+    if (this->_recv_flag )
+    {
+        this->_recv_flag = false;
+        return true;
+    }
+    return false;
 }
