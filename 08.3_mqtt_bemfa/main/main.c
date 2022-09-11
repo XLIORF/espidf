@@ -1,60 +1,98 @@
 #include <stdio.h>
 #include "esp_log.h"
 #include "nvs_flash.h"
-#include "esp_wifi.h"
-#include "esp_event.h"
-#include "string.h"
 
-bool wifi_exist_flag = false;
-#define campus_env 1
-#if home_env
-    #define my_wifi_ssid "ChinaUnicom-E5DFNM"
-    #define my_wifi_password "123456789"
-#elif campus_env
-    #define my_wifi_ssid "TP-LINK_221"
-    #define my_wifi_password "221000221x"
-#endif
-static void net_event_handler(void* arg, esp_event_base_t event_base, int32_t event_id, void* event_data)
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "freertos/event_groups.h"
+#include "mqtt_client.h"
+
+static const char *TAG = "MQTT_BEMFA";
+EventGroupHandle_t wifi_notice = NULL;
+void simplewificonnect(void);
+
+
+static void log_error_if_nonzero(const char *message, int error_code)
 {
-    ESP_LOGI("event handler", "----> event_base: %s event_id: %d", event_base, event_id);
-    if(event_base == WIFI_EVENT)
-    {
-        switch (event_id)
-        {
-        case WIFI_EVENT_STA_START:
-            ESP_LOGI("event handler", "----> %s", "WIFI_EVENT_STA_START");
-            break;
-        case WIFI_EVENT_STA_DISCONNECTED:
-            ESP_LOGI("event handler", "----> %s", "WIFI_EVENT_STA_DISCONNECTED");
-            break;
-        default:
-            break;
-        }
+    if (error_code != 0) {
+        ESP_LOGE(TAG, "Last error %s: 0x%x", message, error_code);
     }
-    else if(event_base == IP_EVENT) 
-    {
-        ip_event_got_ip_t *event = (ip_event_got_ip_t*)event_data;
-        switch(event_id) 
-        {
-            case IP_EVENT_STA_GOT_IP:
-                ESP_LOGI("event handler", "----> IP_EVENT_STA_GOT_IP ip:");
-                ESP_LOGI("event handler", "----> sta ip:"IPSTR, IP2STR(&event->ip_info.ip));
-                ESP_LOGI("event handler", "----> mask:"IPSTR, IP2STR(&event->ip_info.netmask));
-                ESP_LOGI("event handler", "----> gw:"IPSTR, IP2STR(&event->ip_info.gw));
-                break;
-            default:
-                break;
-        }
-    } else 
-    {
-        ESP_LOGI("event handler", "----> %s", "unknown event_base");
-    }
-    return;
 }
 
-static void wifi_connetc()
+/*
+ * @brief Event handler registered to receive MQTT events
+ *
+ *  This function is called by the MQTT client event loop.
+ *
+ * @param handler_args user data registered to the event.
+ * @param base Event base for the handler(always MQTT Base in this example).
+ * @param event_id The id for the received event.
+ * @param event_data The data for the event, esp_mqtt_event_handle_t.
+ */
+static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data)
 {
-    //初始化NVS
+    ESP_LOGD(TAG, "Event dispatched from event loop base=%s, event_id=%d", base, event_id);
+    esp_mqtt_event_handle_t event = event_data;
+    esp_mqtt_client_handle_t client = event->client;
+    int msg_id;
+    switch ((esp_mqtt_event_id_t)event_id) {
+    case MQTT_EVENT_CONNECTED:
+        ESP_LOGI(TAG, "MQTT_EVENT_CONNECTED");
+        msg_id = esp_mqtt_client_publish(client, "test1", "data_3", 0, 1, 0);
+        ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+
+        msg_id = esp_mqtt_client_subscribe(client, "test0", 0);
+        ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
+
+        msg_id = esp_mqtt_client_subscribe(client, "test1", 1);
+        ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);
+
+        msg_id = esp_mqtt_client_unsubscribe(client, "test1");
+        ESP_LOGI(TAG, "sent unsubscribe successful, msg_id=%d", msg_id);
+        break;
+    case MQTT_EVENT_DISCONNECTED:
+        ESP_LOGI(TAG, "MQTT_EVENT_DISCONNECTED");
+        break;
+
+    case MQTT_EVENT_SUBSCRIBED:
+        ESP_LOGI(TAG, "MQTT_EVENT_SUBSCRIBED, msg_id=%d", event->msg_id);
+        msg_id = esp_mqtt_client_publish(client, "test0", "data", 0, 0, 0);
+        ESP_LOGI(TAG, "sent publish successful, msg_id=%d", msg_id);
+        break;
+    case MQTT_EVENT_UNSUBSCRIBED:
+        ESP_LOGI(TAG, "MQTT_EVENT_UNSUBSCRIBED, msg_id=%d", event->msg_id);
+        break;
+    case MQTT_EVENT_PUBLISHED:
+        ESP_LOGI(TAG, "MQTT_EVENT_PUBLISHED, msg_id=%d", event->msg_id);
+        break;
+    case MQTT_EVENT_DATA:
+        ESP_LOGI(TAG, "MQTT_EVENT_DATA");
+        printf("TOPIC=%.*s\r\n", event->topic_len, event->topic);
+        printf("DATA=%.*s\r\n", event->data_len, event->data);
+        break;
+    case MQTT_EVENT_ERROR:
+        ESP_LOGI(TAG, "MQTT_EVENT_ERROR");
+        if (event->error_handle->error_type == MQTT_ERROR_TYPE_TCP_TRANSPORT) {
+            log_error_if_nonzero("reported from esp-tls", event->error_handle->esp_tls_last_esp_err);
+            log_error_if_nonzero("reported from tls stack", event->error_handle->esp_tls_stack_err);
+            log_error_if_nonzero("captured as transport's socket errno",  event->error_handle->esp_transport_sock_errno);
+            ESP_LOGI(TAG, "Last errno string (%s)", strerror(event->error_handle->esp_transport_sock_errno));
+
+        }
+        break;
+    default:
+        ESP_LOGI(TAG, "Other event id:%d", event->event_id);
+        break;
+    }
+}
+
+
+void app_main(void)
+{
+    // ESP_LOGI(TAG, "[APP] Startup..");
+    // ESP_LOGI(TAG, "[APP] Free memory: %d bytes", esp_get_free_heap_size());
+    // ESP_LOGI(TAG, "[APP] IDF version: %s", esp_get_idf_version());
+    wifi_notice = xEventGroupCreate();
     esp_err_t err = nvs_flash_init();
     if(err == ESP_ERR_NVS_NO_FREE_PAGES || err == ESP_ERR_NVS_NEW_VERSION_FOUND)
     {
@@ -62,33 +100,26 @@ static void wifi_connetc()
         err = nvs_flash_init();
     }
     ESP_ERROR_CHECK(err);
+    simplewificonnect();
 
-    //事件循环,不加连不上网
-    esp_event_loop_create_default();
-    esp_event_handler_register(WIFI_EVENT,ESP_EVENT_ANY_ID,&net_event_handler,NULL);//注册wifi事件处理函数
-    esp_event_handler_register(IP_EVENT,ESP_EVENT_ANY_ID,&net_event_handler,NULL);  //注册ip时间处理函数
-    //网络接口初始化
-    esp_netif_init();
-    esp_netif_create_default_wifi_sta();
-    //wifi初始化
-    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
-    esp_wifi_init(&cfg);
-    //目标WiFi配置
-    wifi_config_t wifi_config ={
-        .sta.ssid = my_wifi_ssid,
-        .sta.password = my_wifi_password
+    // esp_log_level_set("*", ESP_LOG_INFO);
+    // esp_log_level_set("MQTT_CLIENT", ESP_LOG_VERBOSE);
+    // esp_log_level_set("MQTT_EXAMPLE", ESP_LOG_VERBOSE);
+    // esp_log_level_set("TRANSPORT_BASE", ESP_LOG_VERBOSE);
+    // esp_log_level_set("esp-tls", ESP_LOG_VERBOSE);
+    // esp_log_level_set("TRANSPORT", ESP_LOG_VERBOSE);
+    // esp_log_level_set("OUTBOX", ESP_LOG_VERBOSE);
+
+    esp_mqtt_client_config_t mqtt_cfg = {
+        .uri = "mqtt://bemfa.com:9501",//从例程复制过来能连接上，但是报错
+        .client_id = "c8c9d678bd2847e5e270c094286291a5",//巴法云mqtt接入文档要求
+        // .host = "bemfa.com",//报一样的错，但是能连接上
+        // .port = 9501,
+        // .transport = MQTT_TRANSPORT_OVER_TCP,
     };
-    esp_wifi_set_config(ESP_IF_WIFI_STA,&wifi_config);
-    //设置wifi模式
-    esp_wifi_set_mode(WIFI_MODE_STA);
-    //启动WiFi
-    esp_wifi_start();
-    //开始连接
-    esp_wifi_connect();
-}
-
-//概率触发掉电检测
-void app_main(void)
-{
-    wifi_connetc();
+    xEventGroupWaitBits(wifi_notice,1,pdTRUE,pdTRUE,portMAX_DELAY);
+    esp_mqtt_client_handle_t client = esp_mqtt_client_init(&mqtt_cfg);
+    /* The last argument may be used to pass data to the event handler, in this example mqtt_event_handler */
+    esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
+    esp_mqtt_client_start(client);
 }
