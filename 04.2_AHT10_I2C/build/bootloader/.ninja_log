@@ -99,3 +99,5 @@
 2174	2343	1662703070261364610	/home/wlx/learn/espidf/04.2_AHT10_I2C/build/bootloader/.bin_timestamp	a33f78813c093aa1
 2343	2447	0	esp-idf/esptool_py/CMakeFiles/bootloader_check_size	f6ba7f0c3a9e97e8
 2343	2447	0	/home/wlx/learn/espidf/04.2_AHT10_I2C/build/bootloader/esp-idf/esptool_py/CMakeFiles/bootloader_check_size	f6ba7f0c3a9e97e8
+1	30	0	esp-idf/esptool_py/CMakeFiles/bootloader_check_size	f6ba7f0c3a9e97e8
+1	30	0	/home/wlx/learn/espidf/04.2_AHT10_I2C/build/bootloader/esp-idf/esptool_py/CMakeFiles/bootloader_check_size	f6ba7f0c3a9e97e8

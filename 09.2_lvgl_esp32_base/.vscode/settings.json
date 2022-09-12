@@ -1,0 +1,18 @@
+{
+  "C_Cpp.intelliSenseEngine": "Tag Parser",
+  "files.associations": {
+    "*.ipp": "c",
+    "complex": "c",
+    "lvgl_helpers.h": "c",
+    "freertos.h": "c",
+    "semphr.h": "c",
+    "lvgl.h": "c",
+    "lv_hal.h": "c",
+    "lv_slider.h": "c",
+    "lv_hal_disp.h": "c",
+    "typeinfo": "c"
+  },
+  "idf.port": "/dev/ttyACM0",
+  "idf.flashType": "UART",
+  "idf.adapterTargetName": "esp32"
+}
