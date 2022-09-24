@@ -1,0 +1,24 @@
+{
+  "C_Cpp.intelliSenseEngine": "Tag Parser",
+  "idf.adapterTargetName": "esp32",
+  "files.associations": {
+    "string_view": "cpp",
+    "regex": "cpp",
+    "array": "cpp",
+    "string": "cpp",
+    "*.inc": "cpp",
+    "*.tcc": "cpp",
+    "optional": "cpp",
+    "istream": "cpp",
+    "ostream": "cpp",
+    "ratio": "cpp",
+    "system_error": "cpp",
+    "functional": "cpp",
+    "tuple": "cpp",
+    "type_traits": "cpp",
+    "utility": "cpp",
+    "cstdio": "cpp"
+  },
+  "idf.port": "/dev/ttyACM0",
+  "idf.flashType": "UART"
+}
