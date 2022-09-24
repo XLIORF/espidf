@@ -1,13 +1,13 @@
 # Target labels
  bootloader
 # Source files and their labels
-/home/wlx/learn/espidf_examples/i2c_oled/build/CMakeFiles/bootloader
-/home/wlx/learn/espidf_examples/i2c_oled/build/CMakeFiles/bootloader.rule
-/home/wlx/learn/espidf_examples/i2c_oled/build/CMakeFiles/bootloader-complete.rule
-/home/wlx/learn/espidf_examples/i2c_oled/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
-/home/wlx/learn/espidf_examples/i2c_oled/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
-/home/wlx/learn/espidf_examples/i2c_oled/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
-/home/wlx/learn/espidf_examples/i2c_oled/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
-/home/wlx/learn/espidf_examples/i2c_oled/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
-/home/wlx/learn/espidf_examples/i2c_oled/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
-/home/wlx/learn/espidf_examples/i2c_oled/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
+/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/CMakeFiles/bootloader
+/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/CMakeFiles/bootloader.rule
+/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/CMakeFiles/bootloader-complete.rule
+/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule

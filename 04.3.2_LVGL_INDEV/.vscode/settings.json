@@ -5,5 +5,14 @@
   "idf.openOcdConfigs": [
     "board/esp32s2-kaluga-1.cfg"
   ],
-  "idf.flashType": "UART"
+  "idf.flashType": "UART",
+  "files.associations": {
+    "future": "c",
+    "system_error": "c",
+    "regex": "c",
+    "thread": "c",
+    "lv_group.h": "c",
+    "semphr.h": "c",
+    "random": "c"
+  }
 }

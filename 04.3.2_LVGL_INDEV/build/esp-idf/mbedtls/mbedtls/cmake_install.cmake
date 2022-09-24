@@ -39,9 +39,9 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/wlx/learn/espidf_examples/i2c_oled/build/esp-idf/mbedtls/mbedtls/include/cmake_install.cmake")
-  include("/home/wlx/learn/espidf_examples/i2c_oled/build/esp-idf/mbedtls/mbedtls/3rdparty/cmake_install.cmake")
-  include("/home/wlx/learn/espidf_examples/i2c_oled/build/esp-idf/mbedtls/mbedtls/library/cmake_install.cmake")
+  include("/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/esp-idf/mbedtls/mbedtls/include/cmake_install.cmake")
+  include("/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/esp-idf/mbedtls/mbedtls/3rdparty/cmake_install.cmake")
+  include("/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/esp-idf/mbedtls/mbedtls/library/cmake_install.cmake")
 
 endif()
 

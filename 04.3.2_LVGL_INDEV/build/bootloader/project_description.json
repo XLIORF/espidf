@@ -1,8 +1,8 @@
 {
     "project_name":       "bootloader",
     "project_path":       "/home/wlx/program/espressif/esp-idf/components/bootloader/subproject",
-    "build_dir":          "/home/wlx/learn/espidf_examples/i2c_oled/build/bootloader",
-    "config_file":        "/home/wlx/learn/espidf_examples/i2c_oled/sdkconfig",
+    "build_dir":          "/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/bootloader",
+    "config_file":        "/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/sdkconfig",
     "config_defaults":    "",
     "app_elf":            "bootloader.elf",
     "app_bin":            "bootloader.bin",

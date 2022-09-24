@@ -1,4 +1,4 @@
-# Install script for directory: /home/wlx/learn/espidf_examples/i2c_oled/managed_components/lvgl__lvgl
+# Install script for directory: /home/wlx/learn/espidf/04.3.2_LVGL_INDEV/managed_components/lvgl__lvgl
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

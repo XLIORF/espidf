@@ -2,34 +2,34 @@
 	"sources" : 
 	[
 		{
-			"file" : "/home/wlx/learn/espidf_examples/i2c_oled/build/CMakeFiles/bootloader"
+			"file" : "/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/CMakeFiles/bootloader"
 		},
 		{
-			"file" : "/home/wlx/learn/espidf_examples/i2c_oled/build/CMakeFiles/bootloader.rule"
+			"file" : "/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/CMakeFiles/bootloader.rule"
 		},
 		{
-			"file" : "/home/wlx/learn/espidf_examples/i2c_oled/build/CMakeFiles/bootloader-complete.rule"
+			"file" : "/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/CMakeFiles/bootloader-complete.rule"
 		},
 		{
-			"file" : "/home/wlx/learn/espidf_examples/i2c_oled/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
+			"file" : "/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
 		},
 		{
-			"file" : "/home/wlx/learn/espidf_examples/i2c_oled/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
+			"file" : "/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
 		},
 		{
-			"file" : "/home/wlx/learn/espidf_examples/i2c_oled/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
+			"file" : "/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
 		},
 		{
-			"file" : "/home/wlx/learn/espidf_examples/i2c_oled/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
+			"file" : "/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
 		},
 		{
-			"file" : "/home/wlx/learn/espidf_examples/i2c_oled/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
+			"file" : "/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
 		},
 		{
-			"file" : "/home/wlx/learn/espidf_examples/i2c_oled/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
+			"file" : "/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
 		},
 		{
-			"file" : "/home/wlx/learn/espidf_examples/i2c_oled/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
+			"file" : "/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
 		}
 	],
 	"target" : 

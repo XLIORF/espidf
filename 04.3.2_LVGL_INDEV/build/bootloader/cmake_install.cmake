@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/wlx/learn/espidf_examples/i2c_oled/build/bootloader/esp-idf/cmake_install.cmake")
+  include("/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/bootloader/esp-idf/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/wlx/learn/espidf_examples/i2c_oled/build/bootloader/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/wlx/learn/espidf/04.3.2_LVGL_INDEV/build/bootloader/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
