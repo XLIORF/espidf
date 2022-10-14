@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+/home/wlx/learn/espidf/10.2_esp32c3_合宙0.96lcd/build/CMakeFiles/bootloader
+/home/wlx/learn/espidf/10.2_esp32c3_合宙0.96lcd/build/CMakeFiles/bootloader.rule
+/home/wlx/learn/espidf/10.2_esp32c3_合宙0.96lcd/build/CMakeFiles/bootloader-complete.rule
+/home/wlx/learn/espidf/10.2_esp32c3_合宙0.96lcd/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+/home/wlx/learn/espidf/10.2_esp32c3_合宙0.96lcd/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+/home/wlx/learn/espidf/10.2_esp32c3_合宙0.96lcd/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+/home/wlx/learn/espidf/10.2_esp32c3_合宙0.96lcd/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+/home/wlx/learn/espidf/10.2_esp32c3_合宙0.96lcd/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+/home/wlx/learn/espidf/10.2_esp32c3_合宙0.96lcd/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+/home/wlx/learn/espidf/10.2_esp32c3_合宙0.96lcd/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
