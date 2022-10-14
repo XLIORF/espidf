@@ -1,0 +1,14 @@
+/.bin_timestamp
+/.ninja_deps
+/.ninja_log
+/CMakeCache.txt
+/bootloader.bin
+/build.ninja
+/cmake_install.cmake
+/compile_commands.json
+/config.env
+/kconfigs.in
+/kconfigs_projbuild.in
+/project_description.json
+/project_elf_src_esp32c3.c
+/rules.ninja
